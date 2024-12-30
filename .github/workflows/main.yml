@@ -22,4 +22,8 @@ jobs:
          password: ${{ secrets.SERVER_PASS }}
          script: |
            cd ${{ secrets.SERVER_DEPLOY_DIR }}
-           git pull origin main         
+           git pull origin main
+           composer update
+           composer install
+           php artisan migrate
+           php artisan key:generate
