@@ -7,13 +7,20 @@
 </head>
 <body>
     <h1>書籍登録</h1>
-    <form action="{{ route('book.store') }}" method="post">
+    @if($errors->any())
+        <div style="color:red">
+            @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </div>
+    @endif
+    <form action="{{ route('book.store') }}" method="POST">
         @csrf
         <div>
             <label>カテゴリ</label>
             <select name="category_id">
                 @foreach($categories as $category)
-                    <option value="{{$category->id}}">{{$category->name}}</option>
+                    <option value="{{$category->id}}">{{$category->title}}</option>
                 @endforeach
             </select>
         </div>

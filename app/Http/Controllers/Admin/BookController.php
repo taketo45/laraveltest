@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\BookPostRequest;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\View\View;
 use App\Models\Book;
@@ -33,12 +33,13 @@ class BookController extends Controller
         ]);
     }
 
-    public function store(Request $request): Book
+    public function store(BookPostRequest $request): Book
     {
         $book = new Book();
         $book->category_id = $request->category_id;
         $book->title = $request->title;
         $book->price = $request->price;
+        
         $book->save();
 
         return $book;
