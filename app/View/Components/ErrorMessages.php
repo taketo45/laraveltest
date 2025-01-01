@@ -15,6 +15,11 @@ class ErrorMessages extends Component
     public function __construct(
             public ViewErrorBag $errors
         ){}
+    
+    public function has2MoreErrors(): bool
+    {
+        return count($this->errors) > 2;
+    }
 
     /**
      * Get the view / contents that represent the component.

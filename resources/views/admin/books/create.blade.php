@@ -8,7 +8,7 @@
 <body>
     <h1>書籍登録</h1>
     @if($errors->any())
-    <x-error-messages :errors="$errors" />
+    <x-error-messages :$errors />
     @endif
     <form action="{{ route('book.store') }}" method="POST">
         @csrf
