@@ -1,11 +1,7 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book登録</title>
-</head>
-<body>
+<x-layouts.book-manager>
+    <x-slot:title>
+        書籍登録
+    </x-slot:title>
     <h1>書籍登録</h1>
     @if($errors->any())
     <x-alert>
@@ -32,6 +28,4 @@
         </div>
         <input type="submit" value="送信">
     </form>
-    
-</body>
-</html>
+</x-layouts.book-manager>
