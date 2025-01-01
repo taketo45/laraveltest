@@ -8,8 +8,10 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\DB;
 use App\Models\Book;
 use App\Models\Category;
+use App\Models\Author;
 
 
 class BookController extends Controller
@@ -21,9 +23,6 @@ class BookController extends Controller
         ->orderBy('title')
         ->get();
         
-        // return view('admin/books/index',[
-        //     'books' => $books,
-        // ]);
         return response()
         -> view('admin/books/index', ['books' => $books])
         -> header('Content-Type', 'text/html')
@@ -39,9 +38,9 @@ class BookController extends Controller
     {
         $categories = Category::all();
 
-        return view('admin.books.create', [
-            'categories' => $categories,
-        ]);
+        $authors = Author::all();
+
+        return view('admin.books.create', compact('categories', 'authors'));
     }
 
     public function store(BookPostRequest $request): RedirectResponse
@@ -51,7 +50,11 @@ class BookController extends Controller
         $book->title = $request->title;
         $book->price = $request->price;
 
-        $book->save();
+
+        DB::transaction(function () use ($book, $request){
+            $book->save();
+            $book->authors()->attach($request->author_ids);
+        });
 
         // return $book;
         return redirect(route('book.index'))->with('message', $book->title."を追加しました");

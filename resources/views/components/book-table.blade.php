@@ -8,7 +8,8 @@
         <tr @if($loop->even) style="background-color:#EEE" @endif>
             <td>{{ $book->category->title }}</td>
             <td>
-                <a href="{{ route('book.show', ['book' => $book]) }}">
+                <a href="{{ route('book.show', $book) }}"> 
+                    <!-- $bookを渡すことで、IDを取り出してくれ/admin/books/{ID}が生成される -->
                     {{ $book->title }}
                 </a>
             </td>
