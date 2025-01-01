@@ -1,14 +1,12 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book登録</title>
-</head>
-<body>
+<x-layouts.book-manager>
+    <x-slot:title>
+        書籍登録
+    </x-slot:title>
     <h1>書籍登録</h1>
     @if($errors->any())
-    <x-error-messages :$errors />
+    <x-alert class="error">
+        <x-error-messages :$errors />
+    </x-alert>
     @endif
     <form action="{{ route('book.store') }}" method="POST">
         @csrf
@@ -28,8 +26,25 @@
             <label for="price">価格</label>
             <input type="text" name="price" placeholder="価格" id="price" value="{{old('price')}}">
         </div>
+        <div>
+            <label>著者</label>
+            <ul>
+                @foreach($authors as $author)
+                    <li>
+                        <label>
+                        <input type="checkbox" 
+                        name="author_ids[]" 
+                        value="{{$author->id}}" 
+                        @checked(
+                            is_array(old('author_ids'))
+                            &&
+                            in_array($author->id, old('author_ids'))
+                        )>
+                        {{$author->name}}</label>
+                    </li>
+                @endforeach
+            </ul>
+        </div>
         <input type="submit" value="送信">
     </form>
-    
-</body>
-</html>
+</x-layouts.book-manager>
