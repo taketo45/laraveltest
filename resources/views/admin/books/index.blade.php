@@ -13,19 +13,7 @@
         </div>
     @endif
     <a href="{{ route('book.create') }}">追加</a>
-    <table border='1'>
-        <tr>
-            <th>カテゴリ</th>
-            <th>タイトル</th>
-            <th>価格</th>
-        </tr>
-        @foreach($books as $book)
-            <tr @if($loop->even) style="background-color:#EEE" @endif>
-                <td>{{ $book->category->title }}</td>
-                <td>{{ $book->title }}</td>
-                <td>{{ $book->price }}</td>
-            </tr>
-        @endforeach
-    </table>
+    <x-book-table :$books />
+
 </body>
 </html>
