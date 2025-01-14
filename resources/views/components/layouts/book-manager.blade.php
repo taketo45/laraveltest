@@ -6,6 +6,20 @@
     <title>{{ $title }}</title>
 </head>
 <body>
-    {{ $slot }}
+    <header>
+        書籍管理システム
+        <form action="{{ route('admin.destroy') }}" method="POST">
+            @csrf
+            <input type="submit" value="ログアウト">
+        </form>
+        <hr>
+    </header>
+    <main>
+        {{ $slot }}
+    </main>
+    <footer>
+        <hr>
+        @Laravel
+    </footer>
 </body>
 </html>
